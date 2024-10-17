@@ -6,32 +6,36 @@ public class StringCalculate {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введите выражение: ");
         String input = scanner.nextLine();
-
         String result = processInput(input);
         System.out.println(result);
         scanner.close();
     }
 
     private static String processInput(String input) {
-        
-        if (input.contains(" + ")) {
+        if (input.contains("+")) {
             return handleAddition(input);
-        } else if (input.contains(" - ")) {
+        } else if (input.contains("-")) {
             return handleSubtraction(input);
-        } else if (input.contains(" * ")) {
+        } else if (input.contains("*")) {
             return handleMultiplication(input);
-        } else if (input.contains(" / ")) {
+        } else if (input.contains("/")) {
             return handleDivision(input);
         }
-        return "Неверный формат ввода. Ожидалось: \"строка\" оператор \"строка\" или \"строка\" оператор число.";
+        return "Неверный формат ввода.";
     }
 
     private static String handleAddition(String input) {
-        String[] parts = input.split(" \\+ ");
+        String[] parts = input.split("\\+");
         if (parts.length == 2) {
             String firstString = removeQuotes(parts[0].trim());
             String secondString = removeQuotes(parts[1].trim());
-            return "\"" + firstString + secondString + "\"";
+            String result = firstString + secondString;
+
+            if (result.length() > 40) {
+                result = result.substring(0, 40) + "...";
+            }
+
+            return "\"" + result + "\"";
         }
         return "Неверный формат ввода.";
     }
@@ -80,7 +84,14 @@ public class StringCalculate {
         for (int i = 0; i < times; i++) {
             result.append(str);
         }
-        return "\"" + result.toString() + "\"";
+
+        String finalResult = result.toString();
+
+        if (finalResult.length() > 40) {
+            return "\"" + finalResult.substring(0, 40) + "...\"";
+        }
+
+        return "\"" + finalResult + "\"";
     }
 
     private static String divideString(String str, int parts) {
@@ -88,7 +99,7 @@ public class StringCalculate {
         String result = str.substring(0, Math.min(partLength, str.length()));
         return "\"" + result + "\"";
     }
-
+    
     private static String removeQuotes(String str) {
         if (str.startsWith("\"") && str.endsWith("\"")) {
             return str.substring(1, str.length() - 1);
