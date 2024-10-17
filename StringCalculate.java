@@ -13,7 +13,7 @@ public class StringCalculate {
     }
 
     private static String processInput(String input) {
-        // Проверяем наличие операторов
+        
         if (input.contains(" + ")) {
             return handleAddition(input);
         } else if (input.contains(" - ")) {
@@ -70,9 +70,9 @@ public class StringCalculate {
         if (a.contains(b)) {
             int index = a.indexOf(b);
             String result = a.substring(0, index);
-            return "\"" + result + "\""; // Возвращаем результат в кавычках
+            return "\"" + result + "\"";
         }
-        return "\"" + a + "\""; // Если строка b не содержится в a, возвращаем a как есть
+        return "\"" + a + "\"";
     }
 
     private static String multiplyString(String str, int times) {
@@ -80,13 +80,13 @@ public class StringCalculate {
         for (int i = 0; i < times; i++) {
             result.append(str);
         }
-        return "\"" + result.toString() + "\""; // Возвращаем результат в кавычках
+        return "\"" + result.toString() + "\"";
     }
 
     private static String divideString(String str, int parts) {
         int partLength = str.length() / parts;
         String result = str.substring(0, Math.min(partLength, str.length()));
-        return "\"" + result + "\""; // Возвращаем результат в кавычках
+        return "\"" + result + "\"";
     }
 
     private static String removeQuotes(String str) {
